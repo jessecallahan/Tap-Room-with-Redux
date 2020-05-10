@@ -4,23 +4,19 @@ import PintBuy from './PintBuy'
 
 
 function BuyPintForm(props) {
-  const { ticket } = props;
+  const { keg } = props;
 
-  function handleEditTicketFormSubmission2(event) {
-    props.onClickingBuy(ticket.id)
+  function handlePintFormSubmission(event) {
+    props.onClickingBuy(keg.id)
     props.onClicky()
     event.preventDefault();
-    console.log(ticket.id)
-    // props.counter({ counter: event.target.counter.value })
-    //props.onEditTicket({ name: ticket.name, location: ticket.location, issue: ticket.issue, inventory: ticket.inventory, id: ticket.id });
   }
 
 
   return (
     <React.Fragment>
       <PintBuy
-        formSubmissionHandler2={handleEditTicketFormSubmission2}
-        buttonText="Update Ticket" />
+        formSubmissionHandler2={handlePintFormSubmission} />
     </React.Fragment>
   );
 }

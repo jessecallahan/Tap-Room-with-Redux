@@ -15,7 +15,7 @@ function PintBuy(props) {
         }}>
           <form onSubmit={props.formSubmissionHandler2}>
             <p>Buy a Pint</p>
-            {/* /* <select>
+            {/* /* this is the part i want to change <select>
           <option value="1" >1</option>
           <option value="2">2</option>
           <option value="3">3</option>

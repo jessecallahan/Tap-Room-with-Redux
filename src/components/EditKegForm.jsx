@@ -4,12 +4,12 @@ import ReusableForm from "./ReusableForm";
 
 
 
-function EditNewTicket(props) {
-  const { ticket } = props;
+function EditNewKeg(props) {
+  const { keg } = props;
 
-  function handleEditTicketFormSubmission(event) {
+  function handleEditKegFormSubmission(event) {
     event.preventDefault();
-    props.onEditTicket({ brand: event.target.brand.value, flavor: event.target.flavor.value, description: event.target.description.value, price: event.target.price.value, pay: 0, id: ticket.id });
+    props.onEditKeg({ brand: event.target.brand.value, flavor: event.target.flavor.value, description: event.target.description.value, price: event.target.price.value, pints: 100, pay: 0, id: keg.id });
   }
 
 
@@ -17,12 +17,11 @@ function EditNewTicket(props) {
   return (
     <React.Fragment>
       <ReusableForm
-        formSubmissionHandler={handleEditTicketFormSubmission} /* new code */
-        buttonText="Update Ticket" />
-
+        formSubmissionHandler={handleEditKegFormSubmission}
+        buttonText="Update Keg" />
     </React.Fragment>
   );
 }
 
 
-export default EditNewTicket;
+export default EditNewKeg;

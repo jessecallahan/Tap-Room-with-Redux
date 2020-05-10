@@ -15,7 +15,7 @@ function Keg(props) {
           marginTop: "15px",
           marginBottom: "15px",
         }}>
-          <div onClick={() => props.whenTicketClicked(props.id)}>
+          <div onClick={() => props.whenKegClicked(props.id)}>
 
 
             <Card.Body>
@@ -43,8 +43,8 @@ Keg.propTypes = {
   price: PropTypes.string,
   pints: PropTypes.string,
   pay: PropTypes.string,
-  id: PropTypes.string, // new PropType
-  whenTicketClicked: PropTypes.func // new PropType
+  id: PropTypes.string,
+  whenKegClicked: PropTypes.func
 };
 
 export default Keg;

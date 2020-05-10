@@ -3,22 +3,22 @@ import { v4 } from 'uuid'; // new code
 import ReusableForm from "./ReusableForm";
 
 
-function NewTicketForm(props) {
+function NewKegForm(props) {
   return (
     <React.Fragment>
       <ReusableForm
-        formSubmissionHandler={handleNewTicketFormSubmission}
+        formSubmissionHandler={handleNewKegFormSubmission}
         buttonText="New Keg" />
     </React.Fragment>
   );
 
-  function handleNewTicketFormSubmission(event) {
+  function handleNewKegFormSubmission(event) {
     event.preventDefault();
-    props.onNewTicketCreation({ brand: event.target.brand.value, flavor: event.target.flavor.value, description: event.target.description.value, price: event.target.price.value, pints: 100, pay: 0, id: v4() });
+    props.onNewKegCreation({ brand: event.target.brand.value, flavor: event.target.flavor.value, description: event.target.description.value, price: event.target.price.value, pints: 100, pay: 0, id: v4() });
   }
 }
 
 
 
 
-export default NewTicketForm;
+export default NewKegForm;

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Card from 'react-bootstrap/Card'
 
-function TicketDetail(props) {
+function KegDetail(props) {
   const { keg } = props; //new code
 
   return (
@@ -23,8 +23,8 @@ function TicketDetail(props) {
           <div style={{ fontStyle: 'italic' }}>This item is ${keg.price} a pint</div>
           <div>This keg has made ${keg.pay}</div>
           <br></br>
-          <button onClick={props.onClickingEdit2}>Buy some pints</button>
-          <button onClick={props.onClickingEdit}>Update Ticket</button> { /* new code */}
+          <button onClick={props.onClickingEdit2}>Buy a Pint</button>
+          <button onClick={props.onClickingEdit}>Update Ticket</button>
           <button onClick={() => props.onClickingDelete(keg.id)}>Close Ticket</button>
           <hr />
         </Card>
@@ -33,10 +33,10 @@ function TicketDetail(props) {
   );
 }
 
-TicketDetail.propTypes = {
+KegDetail.propTypes = {
   keg: PropTypes.object,
   onClickingEdit: PropTypes.func,
   onClickingEdit2: PropTypes.func
 };
 
-export default TicketDetail;
+export default KegDetail;

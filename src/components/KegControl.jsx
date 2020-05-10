@@ -4,7 +4,7 @@ import KegList from './KegList';
 import KegDetail from './KegDetail';
 import EditKegForm from './EditKegForm';
 import BuyPintForm from './BuyPintForm'
-import { v4 } from 'uuid';
+import { kegFakeService } from './FakeKegService';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
@@ -16,65 +16,36 @@ class TicketControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       counter: 0,
-      masterTicketList: [
-        {
-          brand: 'Jimbo\'s',
-          flavor: 'Root Beer',
-          description: 'Good Ol\' Fashioned Root Beer',
-          price: 4.00,
-          pints: 100,
-          pay: 0,
-          id: v4()
-        },
-        {
-          brand: 'Rick\'s',
-          flavor: 'Cola',
-          description: 'Classic Cola Taste',
-          price: 3.00,
-          pints: 100,
-          pay: 0,
-          id: v4()
-        },
-        {
-          brand: 'Cindy\'s',
-          flavor: 'Lemon Lime Soda',
-          description: 'Great Twist of Lemon & Lime',
-          price: 2.00,
-          pints: 100,
-          pay: 0,
-          id: v4()
-        }
-      ],
-      selectedTicket: null, // new code
-      editing: false, // new code
-      buying: false // new code
+      masterKegList: kegFakeService(),
+      selectedKeg: null,
+      editing: false,
+      buying: false
     };
-    this.handleClick = this.handleClick.bind(this); //new code here
+    this.handleClick = this.handleClick.bind(this);
   }
   handleBuy = () => {
 
-    const buyItem = this.state.masterTicketList.map((item) => {
-      if (item.id !== this.state.selectedTicket.id) {
-        return item;
+    const buyKeg = this.state.masterKegList.map((keg) => {
+      if (keg.id !== this.state.selectedKeg.id) {
+        return keg;
       }
       return {
-        ...item,
-        pints: item.pints - 1,
-        pay: item.pay + parseInt(item.price),
+        ...keg,
+        pints: keg.pints - 1,
+        pay: keg.pay + parseInt(keg.price),
 
       };
     });
-    console.log(buyItem)
-    this.setState({ masterTicketList: buyItem, editing: true });
+    this.setState({ masterKegList: buyKeg, editing: true });
   }
 
   handleClick = () => {
-    if (this.state.selectedTicket != null) {
+    if (this.state.selectedKeg != null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedTicket: null,
-        editing: false, // new code
-        buying: false // new code
+        selectedKeg: null,
+        editing: false,
+        buying: false
       });
     } else {
       this.setState(prevState => ({
@@ -82,45 +53,41 @@ class TicketControl extends React.Component {
       }));
     }
   }
-  handleAddingNewTicketToList = (newTicket) => {
-    const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
+  handleAddingNewKegToList = (newKeg) => {
+    const newMasterKegList = this.state.masterKegList.concat(newKeg);
     this.setState({
-      masterTicketList: newMasterTicketList,
+      masterKegList: newMasterKegList,
       formVisibleOnPage: false
     });
   }
-  handleChangingSelectedTicket = (id) => {
-    const selectedTicket = this.state.masterTicketList.filter(ticket => ticket.id === id)[0];
-    this.setState({ selectedTicket: selectedTicket });
+  handleChangingSelectedKeg = (id) => {
+    const selectedKeg = this.state.masterKegList.filter(keg => keg.id === id)[0];
+    this.setState({ selectedKeg: selectedKeg });
   }
-  handleDeletingTicket = (id) => {
-    const newMasterTicketList = this.state.masterTicketList.filter(ticket => ticket.id !== id);
+  handleDeletingKeg = (id) => {
+    const newMasterKegList = this.state.masterKegList.filter(keg => keg.id !== id);
     this.setState({
-      masterTicketList: newMasterTicketList,
-      selectedTicket: null
+      masterKegList: newMasterKegList,
+      selectedKeg: null
     });
   }
-  handleCounter = (counter) => {
-    return (counter)
-  }
+
   handleEditClick = () => {
-    console.log("handleEditClick reached!");
     this.setState({ editing: true });
   }
 
   handleEditClick2 = () => {
-    console.log("handleEditClick reached!");
     this.setState({ buying: true });
   }
 
-  handleEditingTicketInList = (ticketToEdit) => {
-    const editedMasterTicketList = this.state.masterTicketList
-      .filter(ticket => ticket.id !== this.state.selectedTicket.id)
-      .concat(ticketToEdit);
+  handleEditingKegInList = (kegToEdit) => {
+    const editedMasterKegList = this.state.masterKegList
+      .filter(keg => keg.id !== this.state.selectedKeg.id)
+      .concat(kegToEdit);
     this.setState({
-      masterTicketList: editedMasterTicketList,
+      masterKegList: editedMasterKegList,
       editing: false,
-      selectedTicket: null
+      selectedKeg: null
     });
   }
 
@@ -128,41 +95,38 @@ class TicketControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.editing) {
-      currentlyVisibleState = <EditKegForm ticket={this.state.selectedTicket} onEditTicket={this.handleEditingTicketInList} />
-      buttonText = "Return to Ticket List";
+      currentlyVisibleState = <EditKegForm keg={this.state.selectedKeg} onEditKeg={this.handleEditingKegInList} />
+      buttonText = "Return to Keg List";
     } else if (this.state.buying) {
-      currentlyVisibleState = <BuyPintForm ticket={this.state.selectedTicket} counter={this.handleCounter} onClicky={this.handleClick} onClickingBuy={this.handleBuy} />
-      buttonText = "Return to Ticket List";
-    } else if (this.state.selectedTicket != null) {
+      currentlyVisibleState = <BuyPintForm keg={this.state.selectedKeg} onClicky={this.handleClick} onClickingBuy={this.handleBuy} />
+      buttonText = "Return to Keg List";
+    } else if (this.state.selectedKeg != null) {
       currentlyVisibleState = <KegDetail
-        keg={this.state.selectedTicket}
-        onClickingDelete={this.handleDeletingTicket}
+        keg={this.state.selectedKeg}
+        onClickingDelete={this.handleDeletingKeg}
         onClickingEdit={this.handleEditClick}
         onClickingEdit2={this.handleEditClick2} />
-      buttonText = "Return to Ticket List";
+      buttonText = "Return to Keg List";
     }
     else if (this.state.formVisibleOnPage) {
-      // This conditional needs to be updated to "else if."
-      currentlyVisibleState = <NewKegForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
-      buttonText = "Return to Ticket List";
+      currentlyVisibleState = <NewKegForm onNewKegCreation={this.handleAddingNewKegToList} />
+      buttonText = "Return to Keg List";
     } else {
       currentlyVisibleState = <Container>
-        <Row><KegList kegList={this.state.masterTicketList} onTicketSelection={this.handleChangingSelectedTicket} />
+        <Row><KegList
+          kegList={this.state.masterKegList}
+          onKegSelection={this.handleChangingSelectedKeg} />
         </Row>
       </Container>
-
-      // Because a user will actually be clicking on the ticket in the Ticket component, we will need to pass our new handleChangingSelectedTicket method as a prop.
-      buttonText = "Add Ticket";
+      buttonText = "Add Keg";
     }
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        <button onClick={this.handleClick}>{buttonText}</button> { /* new code */}
+        <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );
-
   }
-
 }
 
 export default TicketControl;
