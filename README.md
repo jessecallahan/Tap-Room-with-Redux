@@ -13,7 +13,7 @@ In this application you can inventory all your soda kegs. Each soda Keg has 100 
 
 ## Component Diagram
 
-![component tree](https://https://github.com/jessecallahan/Soda-Fountain/blob/master/src/assets/Component-Diagram.jpg?raw=true)
+![component tree](https://https://github.com/jessecallahan/Soda-Fountain/blob/master/src/assets/Component-Diagram.jpg)
 
 ## Bugs
 
