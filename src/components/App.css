@@ -1,0 +1,55 @@
+.App {
+  text-align: center;
+  color: blue;
+  
+}
+body{
+  background-image: url("../assets/headerlogo.jpg");
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+
+}
+.cardClass{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; 
+  height: 100%; 
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.header {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: yellow;
+}
+
+/* .list {
+  display: flex;
+  flex-wrap:wrap;
+  align-items: center;
+  justify-content: center;
+} */
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
