@@ -24,8 +24,8 @@ function KegDetail(props) {
           <div>This keg has made ${keg.pay}</div>
           <br></br>
           <button onClick={props.onClickingEdit2}>Buy a Pint</button>
-          <button onClick={props.onClickingEdit}>Update Ticket</button>
-          <button onClick={() => props.onClickingDelete(keg.id)}>Close Ticket</button>
+          <button onClick={props.onClickingEdit}>Update Keg</button>
+          <button onClick={() => props.onClickingDelete(keg.id)}>Delete Keg</button>
           <hr />
         </Card>
       </div>
