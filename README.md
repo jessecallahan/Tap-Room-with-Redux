@@ -5,7 +5,7 @@ By _**Jesse Callahan**_</br>
 Contact: _**Jessetylercallahan@gmail.com**_</br>
 
 ## Description
-In this application you can inventory all your soda kegs. Each soda Keg has 100 pints in them. Set a price to your keg or update an exsisting and start tracking how much money each one is making!
+In this application you can inventory all your soda kegs. Each soda Keg has 100 pints in them. Set a price to your keg or update an existing and start tracking how much money each one is making!
 
 ## Setup/Installation Requirements
 1) git clone and go to directory
@@ -18,7 +18,7 @@ In this application you can inventory all your soda kegs. Each soda Keg has 100 
 ## Bugs
 
 Cant record multiple pints,
-needs to make price an interger input,
+needs to make price an integer input,
 does not give you 'sold out' alert
 
 
