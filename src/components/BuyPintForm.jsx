@@ -4,10 +4,10 @@ import PintBuy from './PintBuy'
 
 
 function BuyPintForm(props) {
-  const { keg } = props;
+
 
   function handlePintFormSubmission(event) {
-    props.onClickingBuy(keg.id)
+    props.onClickingBuy(this.id)
     props.onClicky()
     event.preventDefault();
   }

@@ -3,13 +3,15 @@ import NewKegForm from './NewKegForm';
 import KegList from './KegList';
 import KegDetail from './KegDetail';
 import EditKegForm from './EditKegForm';
-import BuyPintForm from './BuyPintForm'
+import BuyPintForm from './BuyPintForm';
+import PropTypes from "prop-types";
 import { kegFakeService } from './FakeKegService';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import { connect } from 'react-redux';
 
 
-class TicketControl extends React.Component {
+class KegControl extends React.Component {
 
   constructor(props) {
     super(props);
@@ -23,22 +25,30 @@ class TicketControl extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-  handleBuy = () => {
+  // handleBuy = () => {
 
-    const buyKeg = this.state.masterKegList.map((keg) => {
-      if (keg.id !== this.state.selectedKeg.id) {
-        return keg;
-      }
-      return {
-        ...keg,
-        pints: keg.pints - 1,
-        pay: keg.pay + parseInt(keg.price),
+  //   const buyKeg = this.state.masterKegList.map((keg) => {
+  //     if (keg.id !== this.state.selectedKeg.id) {
+  //       return keg;
+  //     }
+  //     return {
+  //       ...keg,
+  //       pints: keg.pints - 1,
+  //       pay: keg.pay + parseInt(keg.price),
 
-      };
-    });
-    this.setState({ masterKegList: buyKeg, editing: true });
+  //     };
+  //   });
+  //   this.setState({ masterKegList: buyKeg, editing: true });
+  // }
+  handleBuy = (id) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: 'BUY_PINT',
+      id: id
+    }
+    dispatch(action);
+    this.setState({ selectedKeg: null });
   }
-
   handleClick = () => {
     if (this.state.selectedKeg != null) {
       this.setState({
@@ -54,22 +64,35 @@ class TicketControl extends React.Component {
     }
   }
   handleAddingNewKegToList = (newKeg) => {
-    const newMasterKegList = this.state.masterKegList.concat(newKeg);
-    this.setState({
-      masterKegList: newMasterKegList,
-      formVisibleOnPage: false
-    });
+    const { dispatch } = this.props;
+    const { flavor, brand, description, pints, pay, price, id } = newKeg;
+    const action = {
+      type: 'ADD_KEG',
+      flavor: flavor,
+      brand: brand,
+      description: description,
+      price: price,
+      pints: pints,
+      pay: pay,
+      id: id
+    }
+    dispatch(action);
+    this.setState({ formVisibleOnPage: false });
   }
+
+
   handleChangingSelectedKeg = (id) => {
-    const selectedKeg = this.state.masterKegList.filter(keg => keg.id === id)[0];
+    const selectedKeg = this.props.masterKegList[id];
     this.setState({ selectedKeg: selectedKeg });
   }
   handleDeletingKeg = (id) => {
-    const newMasterKegList = this.state.masterKegList.filter(keg => keg.id !== id);
-    this.setState({
-      masterKegList: newMasterKegList,
-      selectedKeg: null
-    });
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DELETE_KEG',
+      id: id
+    }
+    dispatch(action);
+    this.setState({ selectedKeg: null });
   }
 
   handleEditClick = () => {
@@ -81,16 +104,24 @@ class TicketControl extends React.Component {
   }
 
   handleEditingKegInList = (kegToEdit) => {
-    const editedMasterKegList = this.state.masterKegList
-      .filter(keg => keg.id !== this.state.selectedKeg.id)
-      .concat(kegToEdit);
+    const { dispatch } = this.props;
+    const { flavor, brand, description, pints, pay, price, id } = kegToEdit;
+    const action = {
+      type: 'ADD_KEG',
+      flavor: flavor,
+      brand: brand,
+      description: description,
+      price: price,
+      pints: pints,
+      pay: pay,
+      id: id
+    }
+    dispatch(action);
     this.setState({
-      masterKegList: editedMasterKegList,
       editing: false,
       selectedKeg: null
     });
   }
-
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
@@ -114,7 +145,7 @@ class TicketControl extends React.Component {
     } else {
       currentlyVisibleState = <Container>
         <Row><KegList
-          kegList={this.state.masterKegList}
+          kegList={this.props.masterKegList}
           onKegSelection={this.handleChangingSelectedKeg} />
         </Row>
       </Container>
@@ -128,5 +159,16 @@ class TicketControl extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    masterKegList: state
+  }
+}
 
-export default TicketControl;
+KegControl.propTypes = {
+  masterKegList: PropTypes.object
+};
+
+KegControl = connect(mapStateToProps)(KegControl);
+
+export default KegControl;

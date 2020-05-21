@@ -28,7 +28,7 @@ const masterKegList = [
     pay: 0,
     id: v4()
   }
-];
+]
 
 export function kegFakeService() {
   return masterKegList;
