@@ -5,10 +5,11 @@ import KegDetail from './KegDetail';
 import EditKegForm from './EditKegForm';
 import BuyPintForm from './BuyPintForm';
 import PropTypes from "prop-types";
-import { kegFakeService } from './FakeKegService';
+// import { kegFakeService } from './FakeKegService';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import { connect } from 'react-redux';
+import * as a from './../actions';
 
 
 class KegControl extends React.Component {
@@ -16,9 +17,7 @@ class KegControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false,
-      counter: 0,
-      masterKegList: kegFakeService(),
+      // masterKegList: kegFakeService(),
       selectedKeg: null,
       editing: false,
       buying: false
@@ -52,22 +51,22 @@ class KegControl extends React.Component {
   handleClick = () => {
     if (this.state.selectedKeg != null) {
       this.setState({
-        formVisibleOnPage: false,
         selectedKeg: null,
-        editing: false,
-        buying: false
+        editing: false
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage,
-      }));
+      const { dispatch } = this.props;
+      const action = {
+        type: a.TOGGLE_FORM
+      }
+      dispatch(action);
     }
   }
   handleAddingNewKegToList = (newKeg) => {
     const { dispatch } = this.props;
     const { flavor, brand, description, pints, pay, price, id } = newKeg;
     const action = {
-      type: 'ADD_KEG',
+      type: a.ADD_KEG,
       flavor: flavor,
       brand: brand,
       description: description,
@@ -77,7 +76,10 @@ class KegControl extends React.Component {
       id: id
     }
     dispatch(action);
-    this.setState({ formVisibleOnPage: false });
+    const action2 = {
+      type: a.TOGGLE_FORM
+    }
+    dispatch(action2);
   }
 
 
@@ -88,7 +90,7 @@ class KegControl extends React.Component {
   handleDeletingKeg = (id) => {
     const { dispatch } = this.props;
     const action = {
-      type: 'DELETE_KEG',
+      type: a.DELETE_KEG,
       id: id
     }
     dispatch(action);
@@ -139,7 +141,7 @@ class KegControl extends React.Component {
         onClickingEdit2={this.handleEditClick2} />
       buttonText = "Return to Keg List";
     }
-    else if (this.state.formVisibleOnPage) {
+    else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <NewKegForm onNewKegCreation={this.handleAddingNewKegToList} />
       buttonText = "Return to Keg List";
     } else {
@@ -161,7 +163,8 @@ class KegControl extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    masterKegList: state
+    masterKegList: state.masterKegList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
