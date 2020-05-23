@@ -24,21 +24,7 @@ class KegControl extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-  // handleBuy = () => {
 
-  //   const buyKeg = this.state.masterKegList.map((keg) => {
-  //     if (keg.id !== this.state.selectedKeg.id) {
-  //       return keg;
-  //     }
-  //     return {
-  //       ...keg,
-  //       pints: keg.pints - 1,
-  //       pay: keg.pay + parseInt(keg.price),
-
-  //     };
-  //   });
-  //   this.setState({ masterKegList: buyKeg, editing: true });
-  // }
   handleBuy = (id) => {
     const { dispatch } = this.props;
     const action = {

@@ -1,15 +1,16 @@
-# Soda Fountain/Tap Room
+# Soda Fountain/Tap Room with Redux
 
 Created 05.09.20</br>
 By _**Jesse Callahan**_</br>
 Contact: _**Jessetylercallahan@gmail.com**_</br>
 
 ## Description
-In this application you can inventory all your soda kegs. Each soda Keg has 100 pints in them. Set a price to your keg or update an existing and start tracking how much money each one is making!
+This project builds on Tap Room. This implementation uses React Redux and has Jest Testing in it.
 
 ## Setup/Installation Requirements
 1) git clone and go to directory
-2) type 'npm install && npm run start" in terminal
+2) type 'npm install && npm run start" in terminal to use Tap Room
+3) use 'npm run test' command to run Jest tests. 
 
 ## Component Diagram
 
@@ -17,9 +18,9 @@ In this application you can inventory all your soda kegs. Each soda Keg has 100 
 
 ## Bugs
 
-Cant record multiple pints,
-needs to make price an integer input,
-does not give you 'sold out' alert
+Doesnt implement 'Buy Pint' functionality,
+Doesnt show tap list,
+Pressing 'update keg' for the first time creates a new keg
 
 
 ## Technologies Used

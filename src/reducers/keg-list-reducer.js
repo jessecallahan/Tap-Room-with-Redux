@@ -19,6 +19,7 @@ export default (state = {}, action) => {
       const newState = { ...state };
       delete newState[id];
       return newState;
+    //// this reducer doesnt function
     case c.BUY_PINT:
       const newState1 = { ...state };
       const keg = newState1[id]
@@ -32,3 +33,19 @@ export default (state = {}, action) => {
   }
 };
 
+///for reducer above
+// handleBuy = () => {
+
+  //   const buyKeg = this.state.masterKegList.map((keg) => {
+  //     if (keg.id !== this.state.selectedKeg.id) {
+  //       return keg;
+  //     }
+  //     return {
+  //       ...keg,
+  //       pints: keg.pints - 1,
+  //       pay: keg.pay + parseInt(keg.price),
+
+  //     };
+  //   });
+  //   this.setState({ masterKegList: buyKeg, editing: true });
+  // }
